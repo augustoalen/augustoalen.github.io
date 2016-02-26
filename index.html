@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" ng-app="listaTelefonica">
   <head>
     <meta charset="utf-8">
-    <title>Testando o IO</title>
+    <title>Aula 1 - AngularJs</title>
+    <script src="angular.js"></script>
+
+    <script>
+      angular.module("listaTelefonica", []);
+      angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope){
+          $scope.app = "Lista Teleonica";
+          $scope.contatos = [
+            {nome: "teste1", telefone: "111111111"},
+            {nome: "teste2", telefone: "222222222"}
+          ];
+          $scope.adicionarContato = function(contato){
+              $scope.contatos.push(angular.copy(contato));
+              delete $scope.contato;
+          };
+      });
+    </script>
+
   </head>
-  <body>
-        Fazendo testes!
+  <body ng-controller="listaTelefonicaCtrl">
+
+    <div>
+      <h4>{{app}}</h4>
+      <table>
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+        </tr>
+        <tr ng-repeat="contato in contatos">
+          <td>{{contato.nome}}</td>
+          <td>{{contato.telefone}}</td>
+        </tr>
+      </table>
+      <hr/>
+      <input type="text" ng-model="contato.nome" placeholder="Nome"/>
+      <input type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+      <button ng-click="adicionarContato(contato)">Adicionar</button>
+    </div>
+
   </body>
 </html>
